@@ -32,7 +32,7 @@ export const globalStyles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: COLORS.textdark,
+    color: COLORS.textDark,
     marginBottom: 16,
   },
   
@@ -114,7 +114,7 @@ export const jobCardStyles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '600',
-    color: COLORS.textdark,
+    color: COLORS.textDark,
     marginBottom: 4,
   },
   description: {
@@ -164,60 +164,264 @@ export const onboardingStyles = StyleSheet.create({
     backgroundColor: COLORS.background,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 24,
+    paddingHorizontal: 24, // Coerente con splash
+  },
+  content: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: 20,
-    paddingBottom: 30,
+    paddingBottom: 40,
+  },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 50, // Spazio generoso per il logo
+    paddingHorizontal: 24, // Coerente con splash
+  },
+  logo: {
+    width: 100, // Più grande ma proporzionato
+    height: 100,
+    marginBottom: 24, // Spazio ottimizzato
   },
   title: {
-    fontSize: 24,
+    fontSize: 30, // Più grande e impattante
     fontWeight: 'bold',
-    color: COLORS.primary,
-    marginBottom: 20,
+    color: COLORS.textDark,
+    marginBottom: 12,
     textAlign: 'center',
+    letterSpacing: 1, // Eleganza tipografica
   },
   subtitle: {
-    fontSize: 16,
-    color: COLORS.textdark,
+    fontSize: 17, // Coerente con splash
+    color: COLORS.textLight,
+    textAlign: 'center',
+    marginBottom: 40,
+    lineHeight: 24, // Leggibilità migliorata
+    paddingHorizontal: 8,
+  },
+  rolesContainer: {
+    width: '100%',
+    gap: 16,
+  },
+  roleButton: {
+    backgroundColor: COLORS.primary,
+    padding: 20,
+    borderRadius: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 6,
     marginBottom: 16,
+  },
+  selectedRole: {
+    borderColor: COLORS.primary,
+    backgroundColor: COLORS.primaryLight,
+  },
+  roleIcon: {
+    fontSize: 28,
+    marginRight: 16,
+    width: 40,
     textAlign: 'center',
   },
-  roleCard: {
-    width: '100%',
-    marginBottom: 12,
-    padding: 16,
-    borderRadius: 12,
-    borderWidth: 2,
-  },
-  roleCardSelected: {
-    borderColor: COLORS.primary,
-    backgroundColor: `${COLORS.primary}10`,
-  },
-  roleCardUnselected: {
-    borderColor: '#E5E7EB',
-    backgroundColor: '#FFFFFF',
+  roleTextContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
   },
   roleTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: COLORS.textdark,
+    fontWeight: 'bold',
+    color: COLORS.white,
     marginBottom: 4,
+    textAlign: 'left',
   },
   roleDescription: {
     fontSize: 14,
-    color: '#6B7280',
+    color: COLORS.white,
+    textAlign: 'left',
+    lineHeight: 20,
+    opacity: 0.9,
   },
-  continueButton: {
-    marginTop: 20,
-    backgroundColor: COLORS.primary,
-    borderRadius: 8,
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    marginBottom: 10,
-  },
-  continueButtonText: {
-    color: '#FFFFFF',
+  roleButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    textAlign: 'center',
+    color: COLORS.white,
   },
-}); 
+  // Mantieni gli stili vecchi per compatibilità
+  roleCard: {
+    backgroundColor: COLORS.white,
+    padding: 20,
+    marginVertical: 8,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: COLORS.background,
+    shadowColor: COLORS.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  roleCardSelected: {
+    borderColor: COLORS.primary,
+    backgroundColor: COLORS.primaryLight,
+  },
+  roleCardUnselected: {
+    borderColor: COLORS.background,
+  },
+  continueButton: {
+    backgroundColor: COLORS.primary,
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 25,
+    marginTop: 20,
+    minWidth: 200,
+    alignItems: 'center',
+    shadowColor: COLORS.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  continueButtonText: {
+    color: COLORS.white,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
+
+export const splashStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  // 🎯 LAYOUT OTTIMIZZATO (Best Practice: Upper Third Rule)
+  logoContainer: {
+    alignItems: 'center',
+    justifyContent: 'flex-end', // Logo posizionato nella parte superiore
+    flex: 0.55, // 55% dello spazio per il logo (sopra il centro)
+    paddingHorizontal: 24, // Stesso padding del testo per allineamento
+    paddingBottom: 20, // Spazio tra logo e testo
+  },
+  logo: {
+    width: 160,  // Leggermente più grande per bilanciare il layout
+    height: 160,
+    alignSelf: 'center', // Assicura centratura perfetta
+  },
+  textContainer: {
+    alignItems: 'center',
+    justifyContent: 'flex-start', // Testo nella parte inferiore
+    flex: 0.45, // 45% dello spazio per il testo
+    paddingHorizontal: 24, // Stesso padding del logo
+    paddingTop: 16, // Spazio dal logo
+    maxWidth: '90%',
+    alignSelf: 'center', // Centratura perfetta
+  },
+  
+  // 🌈 GRADIENT OVERLAY per transizione fluida
+  gradientOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0, // Inizia invisibile, animato durante l'uscita
+  },
+  
+  // 🎯 SPLASH SCREEN TEXT STYLES OTTIMIZZATI
+  title: {
+    fontSize: 36, // Più prominente nel nuovo layout
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+    letterSpacing: 3, // Spaziatura aumentata per eleganza
+    marginBottom: 16, // Spazio generoso
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+  },
+  subtitle: {
+    fontSize: 17, // Leggermente più grande
+    color: 'rgba(255, 255, 255, 0.9)', // Più visibile
+    textAlign: 'center',
+    fontWeight: '400',
+    lineHeight: 24, // Altezza linea aumentata
+    paddingHorizontal: 12,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+});
+
+// 📊 DASHBOARD STYLES (Coerenti con Splash e Onboarding)
+export const dashboardStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 24, // Coerente con splash/onboarding
+    paddingTop: 8,
+    paddingBottom: 40,
+  },
+  welcomeSection: {
+    alignItems: 'center',
+    marginBottom: 32,
+    paddingHorizontal: 8,
+  },
+  welcomeTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: COLORS.textDark,
+    textAlign: 'center',
+    marginBottom: 8,
+    letterSpacing: 0.5,
+  },
+  welcomeSubtitle: {
+    fontSize: 16,
+    color: COLORS.textLight,
+    textAlign: 'center',
+    lineHeight: 22,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: COLORS.textDark,
+    marginBottom: 16,
+    marginTop: 8,
+  },
+  listContainer: {
+    flex: 1,
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 60,
+  },
+  emptyIcon: {
+    fontSize: 48,
+    marginBottom: 16,
+    opacity: 0.5,
+  },
+  emptyTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: COLORS.textLight,
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  emptyDescription: {
+    fontSize: 14,
+    color: COLORS.textLight,
+    textAlign: 'center',
+    lineHeight: 20,
+    opacity: 0.8,
+  },
+});

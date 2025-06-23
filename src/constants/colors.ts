@@ -1,7 +1,10 @@
 export const COLORS = {
-  primary: '#2B6CB0',
-  secondary: '#38B2AC',
-  background: '#F7FAFC',
-  textDark: '#1A202C',
-  waiting: '#EDE7DB',
+  primary: '#2563EB',
+  secondary: '#F59E0B',
+  background: '#F8FAFC',
+  textDark: '#1E293B',
+  textLight: '#64748B',
+  white: '#FFFFFF',
+  primaryLight: '#EFF6FF',
+  waiting: '#F59E0B',
 }; 
