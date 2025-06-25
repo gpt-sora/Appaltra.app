@@ -5,9 +5,9 @@ import type { RootStackParamList } from '../types/navigation';
 import { UserProvider } from '../contexts/UserContext';
 import { SplashScreen } from '../screens/SplashScreen';
 import { OnboardingScreen } from '../screens/OnboardingScreen';
-import { DashboardPrivatoScreen } from '../screens/DashboardPrivatoScreen';
-import { DashboardAziendaScreen } from '../screens/DashboardAziendaScreen';
-import { DashboardProScreen } from '../screens/DashboardProScreen';
+import { LoginScreen } from '../screens/LoginScreen';
+import { SmartDashboard } from '../components/SmartDashboard';
+// ✅ Usa SmartDashboard per tutte le dashboard
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -36,20 +36,16 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen 
-            name="DashboardPrivato" 
-            component={DashboardPrivatoScreen}
+            name="Login" 
+            component={LoginScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen 
-            name="DashboardAzienda" 
-            component={DashboardAziendaScreen}
+            name="SmartDashboard" 
+            component={SmartDashboard}
             options={{ headerShown: false }}
           />
-          <Stack.Screen 
-            name="DashboardPro" 
-            component={DashboardProScreen}
-            options={{ headerShown: false }}
-          />
+          {/* ✅ Tutte le dashboard ora usano SmartDashboard */}
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

@@ -236,7 +236,7 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ navigation }
     });
   };
 
-  // 🎯 GESTIONE SELEZIONE RUOLO CON CONTEXT
+  // 🎯 GESTIONE SELEZIONE RUOLO CON CONTEXT + SMART DASHBOARD
   const handleRoleSelection = async (role: UserRole) => {
     console.log(`🎯 Ruolo selezionato: ${role}`);
     
@@ -245,21 +245,11 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ navigation }
       await setUserRole(role);
       console.log('✅ Ruolo salvato nel Context:', role);
       
-      // 📱 Navigazione alle dashboard
+      // 🚀 NUOVA ARCHITETTURA: Naviga al Login dopo selezione ruolo
+      // LoginScreen userà il ruolo salvato nel Context
       if (navigation) {
-        switch (role) {
-          case 'Privato':
-            navigation.navigate('DashboardPrivato');
-            break;
-          case 'Azienda':
-            navigation.navigate('DashboardAzienda');
-            break;
-          case 'Professionista':
-            navigation.navigate('DashboardPro');
-            break;
-          default:
-            console.log('⚠️ Ruolo non riconosciuto:', role);
-        }
+        console.log(`🧭 Navigating to Login for role: ${role}`);
+        navigation.navigate('Login');
       } else {
         console.log('⚠️ Navigation prop non disponibile');
       }

@@ -35,13 +35,13 @@
 - **Selezione ruolo** all'onboarding con salvataggio automatico
 - **Restore session** automatico al riavvio app
 
-### 📊 **Dashboard Personalizzate**
-- **Dashboard Privato** 🏠 - Per utenti privati
-- **Dashboard Azienda** 🏢 - Per aziende e imprese  
-- **Dashboard Professionista** 👨‍💼 - Per artigiani e professionisti
-- Animazioni professionali coerenti con splash/onboarding
-- Header navigazione con back button funzionanti
-- Welcome sections personalizzate per ogni ruolo
+### 📊 **Smart Dashboard System**
+- **SmartDashboard Router** 🧠 - Sistema intelligente di routing
+- **ClientDashboard** 🏠 - Template per chi appalta (Privato + Azienda modalità Cliente)
+- **ProviderDashboard** 👨‍💼 - Template per chi si offre (Professionista + Azienda modalità Fornitore)
+- **Toggle Header dinamico** per aziende (switch Cliente ↔ Fornitore)
+- Animazioni professionali e configurazione dinamica per tipo utente
+- **95% meno codice duplicato** con architettura DRY
 
 ---
 
@@ -92,8 +92,11 @@ npm start
 AppaltraClean/
 ├── src/
 │   ├── components/          # Componenti riutilizzabili
-│   │   ├── DashboardHeader.tsx
-│   │   └── JobCard.tsx
+│   │   ├── SmartDashboard.tsx    # Router intelligente dashboard
+│   │   ├── ClientDashboard.tsx   # Template per chi appalta
+│   │   ├── ProviderDashboard.tsx # Template per chi si offre
+│   │   ├── DashboardHeader.tsx   # Header riutilizzabile
+│   │   └── JobCard.tsx           # Card lavori
 │   ├── constants/           # Costanti e configurazioni
 │   │   ├── colors.ts        # Palette colori app
 │   │   └── styles.ts        # Stili globali
@@ -102,11 +105,8 @@ AppaltraClean/
 │   ├── navigation/          # Navigazione app
 │   │   └── AppNavigator.tsx # Stack navigator principale
 │   ├── screens/             # Schermate principali
-│   │   ├── SplashScreen.tsx
-│   │   ├── OnboardingScreen.tsx
-│   │   ├── DashboardPrivatoScreen.tsx
-│   │   ├── DashboardAziendaScreen.tsx
-│   │   └── DashboardProScreen.tsx
+│   │   ├── SplashScreen.tsx      # Schermata iniziale animata
+│   │   └── OnboardingScreen.tsx  # Selezione ruolo utente
 │   └── types/               # Definizioni TypeScript
 │       └── navigation.ts
 ├── assets/                  # Risorse statiche

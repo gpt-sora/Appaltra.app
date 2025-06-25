@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, FlatList, Animated, Easing } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { JobCard } from '../components/JobCard';
-import { DashboardHeader } from '../components/DashboardHeader';
+import { JobCard } from './JobCard';
+import { DashboardHeader } from './DashboardHeader';
 import { dashboardStyles } from '../constants/styles';
 import { useUser } from '../contexts/UserContext';
 
-const mockJobs = [
+// 🎯 MOCK DATA PER CHI SI OFFRE
+const mockProviderJobs = [
   {
     title: 'Installazione Caldaia',
     description: 'Sostituzione caldaia e collaudo impianto.',
@@ -17,25 +18,59 @@ const mockJobs = [
   {
     title: 'Manutenzione Elettrica',
     description: 'Controllo e manutenzione impianto elettrico domestico.',
-    category: 'Elettricista',
+    category: 'Elettricista', 
     location: 'Varese',
     status: 'Aperto' as const,
   },
 ];
 
-export const DashboardProScreen: React.FC = () => {
+// 🏗️ CONFIGURAZIONE PER TIPO UTENTE
+interface ProviderDashboardProps {
+  userType: 'Professionista' | 'Azienda';
+  showHeader?: boolean; // Default true, false quando usato da SmartDashboard Azienda
+}
+
+const PROVIDER_CONFIG = {
+  Professionista: {
+    emoji: '👨‍💼',
+    welcomeTitle: (name?: string) => name ? `Benvenuto ${name}! 👨‍💼` : 'Area professionista 👨‍💼',
+    welcomeSubtitle: 'Trova nuovi lavori e gestisci le tue offerte',
+    sectionTitle: 'Lavori disponibili',
+    emptyState: {
+      icon: '🔧',
+      title: 'Nessun lavoro disponibile',
+      description: 'Controlla più tardi per nuove opportunità'
+    }
+  },
+  Azienda: {
+    emoji: '🏢',
+    welcomeTitle: (name?: string) => name ? `Benvenuta ${name}! 🏢` : 'Area fornitore aziendale 🏢',
+    welcomeSubtitle: 'Rispondi ad appalti e gestisci le offerte aziendali',
+    sectionTitle: 'Appalti disponibili',
+    emptyState: {
+      icon: '🏗️',
+      title: 'Nessun appalto disponibile',
+      description: 'Controlla più tardi per nuove opportunità di business'
+    }
+  }
+};
+
+export const ProviderDashboard: React.FC<ProviderDashboardProps> = ({ userType, showHeader = true }) => {
   // 🪝 USER CONTEXT HOOK
   const { user, isLoggedIn } = useUser();
   
-  // 🎭 ANIMAZIONI COERENTI (Stile Onboarding)
+  // 🎭 ANIMAZIONI COERENTI
   const welcomeOpacity = useRef(new Animated.Value(0)).current;
   const welcomeTranslateY = useRef(new Animated.Value(20)).current;
   const listOpacity = useRef(new Animated.Value(0)).current;
   const listTranslateY = useRef(new Animated.Value(30)).current;
 
+  // 🎨 CONFIGURAZIONE DINAMICA
+  const config = PROVIDER_CONFIG[userType];
+
   // 🎬 SEQUENZA ANIMAZIONE ENTRANCE
   useEffect(() => {
-    console.log('🎬 Dashboard Professionista entrance animations...');
+    console.log(`🎬 Provider Dashboard (${userType}) entrance animations...`);
     console.log('👤 User data:', { 
       user: user ? {
         id: user.id,
@@ -46,12 +81,12 @@ export const DashboardProScreen: React.FC = () => {
       isLoggedIn 
     });
     
-    // FASE 1: Welcome section (400ms) - Delay ridotto per fluidità
+    // FASE 1: Welcome section (400ms)
     Animated.parallel([
       Animated.timing(welcomeOpacity, {
         toValue: 1,
         duration: 400,
-        delay: 100, // Delay ridotto per coordinare con exit onboarding
+        delay: 100,
         easing: Easing.bezier(0.25, 0.46, 0.45, 0.94),
         useNativeDriver: true,
       }),
@@ -82,14 +117,16 @@ export const DashboardProScreen: React.FC = () => {
         }),
       ]).start();
     });
-  }, []);
+  }, [userType]);
 
   return (
     <SafeAreaView style={dashboardStyles.container}>
-      <DashboardHeader 
-        title="Dashboard Professionista" 
-        subtitle="Lavori disponibili e offerte"
-      />
+      {showHeader && (
+        <DashboardHeader 
+          title={`Dashboard ${userType}`}
+          subtitle={userType === 'Professionista' ? 'Lavori disponibili e offerte' : 'Appalti e opportunità aziendali'}
+        />
+      )}
       
       <View style={dashboardStyles.content}>
         {/* Welcome Section Animata con Dati Context */}
@@ -103,10 +140,10 @@ export const DashboardProScreen: React.FC = () => {
           ]}
         >
           <Text style={dashboardStyles.welcomeTitle}>
-            {user ? `Benvenuto ${user.name}! 👨‍💼` : 'Area professionista 👨‍💼'}
+            {config.welcomeTitle(user?.name)}
           </Text>
           <Text style={dashboardStyles.welcomeSubtitle}>
-            {user?.role ? `Ruolo: ${user.role} • ` : ''}Trova nuovi lavori e gestisci le tue offerte
+            {user?.role ? `Ruolo: ${user.role} • ` : ''}{config.welcomeSubtitle}
           </Text>
         </Animated.View>
 
@@ -120,11 +157,11 @@ export const DashboardProScreen: React.FC = () => {
             }
           ]}
         >
-          <Text style={dashboardStyles.sectionTitle}>Lavori disponibili</Text>
+          <Text style={dashboardStyles.sectionTitle}>{config.sectionTitle}</Text>
           
-          {mockJobs.length > 0 ? (
+          {mockProviderJobs.length > 0 ? (
             <FlatList
-              data={mockJobs}
+              data={mockProviderJobs}
               keyExtractor={item => item.title}
               renderItem={({ item }) => <JobCard {...item} />}
               contentContainerStyle={{ paddingBottom: 32 }}
@@ -132,10 +169,10 @@ export const DashboardProScreen: React.FC = () => {
             />
           ) : (
             <View style={dashboardStyles.emptyState}>
-              <Text style={dashboardStyles.emptyIcon}>🔧</Text>
-              <Text style={dashboardStyles.emptyTitle}>Nessun lavoro disponibile</Text>
+              <Text style={dashboardStyles.emptyIcon}>{config.emptyState.icon}</Text>
+              <Text style={dashboardStyles.emptyTitle}>{config.emptyState.title}</Text>
               <Text style={dashboardStyles.emptyDescription}>
-                Controlla più tardi per nuove opportunità
+                {config.emptyState.description}
               </Text>
             </View>
           )}
